@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const contacts = require("../../controllers/controllers")
+const contacts = require("../../controllers/contacts")
 
 const  isValidId  = require("../../middlewares/isValidId");
 

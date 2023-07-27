@@ -1,7 +1,6 @@
 const Joi = require("joi");
-const Contact = require("../models/contact");
-
-const HttpError = require("../utils/HttpError")
+const Contact = require("../../models/contact");
+const HttpError = require("../../utils/HttpError");
 
 const schema = (data) =>
   Joi.object()
