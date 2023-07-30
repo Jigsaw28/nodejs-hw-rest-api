@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const { User, schemas } = require("../../models/users");
 const { HttpError } = require("../../utils");
 
@@ -5,14 +7,17 @@ const register = async (req, res, next) => {
   try {
     const { error } = schemas.registerSchema(req.body);
     if (error) {
-      throw HttpError(400, "missing required name field");
+      throw HttpError(400, "Missing required name field");
     }
-    const { email } = req.body;
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (user) {
       throw HttpError(409, "Email in use")
     }
-    const newUser = await User.create(req.body);
+
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await User.create({...req.body, password: hashPassword});
     res.status(201).json({
       email: newUser.email,
     });
@@ -21,9 +26,4 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = (req, res, next) => {};
-
-module.exports = {
-  register,
-  login,
-};
+module.exports = register;
