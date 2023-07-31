@@ -50,9 +50,18 @@ const loginSchema = (data) =>
     })
     .validate(data);
 
+const updateSubscribeSchema = (data) =>
+  Joi.object()
+    .options({ abortEarly: false })
+    .keys({
+      subscription: Joi.string().valid("starter", "pro", "business").required(),
+    })
+    .validate(data);
+
 const schemas = {
   registerSchema,
   loginSchema,
+  updateSubscribeSchema,
 };
 
 const User = model("user", userSchema);

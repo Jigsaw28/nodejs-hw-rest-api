@@ -8,18 +8,18 @@ const {getListContacts,
   updateContact,
   updateStatusContact} = require("../../controllers/contacts")
 
-const  isValidId  = require("../../middlewares/isValidId");
+const { isValidId, auth }  = require("../../middlewares");
 
-router.get("/", getListContacts);
+router.get("/", auth, getListContacts);
 
-router.get("/:contactId", isValidId, getContactById);
+router.get("/:contactId", auth, isValidId, getContactById);
 
-router.post("/", addContact);
+router.post("/", auth, addContact);
 
-router.delete("/:contactId", isValidId, removeContact);
+router.delete("/:contactId", auth, isValidId, removeContact);
 
-router.put("/:contactId", isValidId, updateContact);
+router.put("/:contactId", auth, isValidId, updateContact);
 
-router.patch("/:contactId/favorite", isValidId, updateStatusContact);
+router.patch("/:contactId/favorite", auth, isValidId, updateStatusContact);
 
 module.exports = router;
