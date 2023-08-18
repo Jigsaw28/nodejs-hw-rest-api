@@ -6,6 +6,10 @@ const {auth, upload} = require("../../middlewares");
 
 router.post('/register', authController.register);
 
+router.get("/verify/:verificationCode", authController.verifyEmail)
+
+router.post("/verify", authController.resendVerifyEmail);
+
 router.post('/login', authController.login);
 
 router.get("/current", auth, authController.getCurrent);
